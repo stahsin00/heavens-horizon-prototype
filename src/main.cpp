@@ -2,22 +2,24 @@
 #include <thread>
 #include <chrono>
 #include <vector>
+#include "Renderer.h"
+#include "TimeTickSystem.h"
 
 const int WIDTH = 20;
 const int HEIGHT = 10;
 
-void clearScreen() {
-    system("CLS");
-}
+void update(std::vector<std::vector<char>>& grid, int& npcX, int& npcY) {
+    grid[npcY][npcX] = '.';
 
-void renderGrid(const std::vector<std::vector<char>>& grid) {
-    clearScreen();
-    for (const auto& row : grid) {
-        for (char cell : row) {
-            std::cout << cell << ' ';
-        }
-        std::cout << std::endl;
-    }
+    npcX += (rand() % 3) - 1;
+    npcY += (rand() % 3) - 1;
+
+    npcX = std::max(0, std::min(WIDTH - 1, npcX));
+    npcY = std::max(0, std::min(HEIGHT - 1, npcY));
+
+    grid[npcY][npcX] = 'N';
+
+    Renderer::render(grid);
 }
 
 int main() {
@@ -28,20 +30,16 @@ int main() {
     
     grid[npcY][npcX] = 'N';
 
-    while (true) {
-        grid[npcY][npcX] = '.';
+    TimeTickSystem& timeTickSystem = TimeTickSystem::getInstance();
 
-        npcX += (rand() % 3) - 1;
-        npcY += (rand() % 3) - 1;
+    timeTickSystem.onTick([&grid, &npcX, &npcY]() {
+        update(grid, npcX, npcY);
+    });
 
-        npcX = std::max(0, std::min(WIDTH - 1, npcX));
-        npcY = std::max(0, std::min(HEIGHT - 1, npcY));
+    timeTickSystem.start();
 
-        grid[npcY][npcX] = 'N';
-
-        renderGrid(grid);
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    while (true) {  // TODO
+        std::this_thread::sleep_for(std::chrono::minutes(10));
     }
 
     return 0;
