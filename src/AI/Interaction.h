@@ -10,13 +10,10 @@ public:
     Interaction();
 
     const std::string& getName() const;
-    int getX() const;
-    int getY() const;
     const std::vector<Reward>& getRewards() const;
     float getDuration() const;
 
 protected:
-    void setName(const std::string& name);
     void addReward(const Reward& reward);
 
 public:
@@ -24,7 +21,6 @@ public:
 
 protected:
     std::string name;
-    int x, y;
     std::vector<Reward> rewards;
     float duration;
 };

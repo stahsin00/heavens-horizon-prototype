@@ -4,9 +4,10 @@
 #include <vector>
 #include "Renderer.h"
 #include "TimeTickSystem.h"
+#include "Ship.h"
 
 const int WIDTH = 20;
-const int HEIGHT = 10;
+const int HEIGHT = 20;
 
 void update(std::vector<std::vector<char>>& grid, int& npcX, int& npcY) {
     grid[npcY][npcX] = '.';
@@ -24,6 +25,7 @@ void update(std::vector<std::vector<char>>& grid, int& npcX, int& npcY) {
 
 int main() {
     std::vector<std::vector<char>> grid(HEIGHT, std::vector<char>(WIDTH, '.'));
+    Ship ship(WIDTH);
     
     int npcX = WIDTH / 2;
     int npcY = HEIGHT / 2;

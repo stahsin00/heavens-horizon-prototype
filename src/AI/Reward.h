@@ -5,13 +5,13 @@
 
 class Reward {
 public:
-    Reward(const std::string& needType, float amount);
+    Reward(const std::string& type, float amount);
 
-    const std::string& getNeedType() const;
+    const std::string& getType() const;
     float getAmount() const;
 
 private:
-    std::string needType;
+    std::string type;
     float amount;
 };
 
