@@ -5,14 +5,14 @@
 
 class Need {
 public:
-    Need(const std::string& type);
+    Need();
 
     const std::string& getType() const;
     float getCurrent() const;
-
     void recover(float amount);
-    void decay();
-    float scoreNeed();
+
+    virtual void decay();
+    virtual float scoreNeed();
 
 protected:
     std::string type;
