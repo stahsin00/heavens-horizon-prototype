@@ -7,11 +7,11 @@ class Reward {
 public:
     Reward(const std::string& type, float amount);
 
-    const std::string& getType() const;
+    const std::string& getNeedType() const;
     float getAmount() const;
 
 private:
-    std::string type;
+    std::string needType;
     float amount;
 };
 
